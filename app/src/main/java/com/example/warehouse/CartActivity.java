@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.warehouse.Adapter.CartAdapter;
+import com.example.warehouse.Model.Cart;
+import com.example.warehouse.Model.CartList;
 import com.example.warehouse.Model.Installer;
 import com.example.warehouse.Model.InstallerList;
 import com.example.warehouse.Model.Worker;
@@ -30,10 +35,13 @@ public class CartActivity extends AppCompatActivity {
     CartService service;
     Call<WorkerList> workerListCall;
     Call<InstallerList> installerListCall;
+    Call<CartList> cartListCall;
     RelativeLayout installerLayout, workerLayout;
     TokenManager tokenManager;
     AlertDialog dialog, dialog2;
     TextView workersTitle, installerTitle;
+    RecyclerView recyclerView;
+    CartAdapter adapter;
     int workersId, installerId;
     private static final String TAG = "CartActivity";
 
@@ -49,7 +57,21 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         init();
+        tokenManager = TokenManager.getInstance(getSharedPreferences("preferences", MODE_PRIVATE));
         service = RetrofitBuilder.getRetrofit().create(CartService.class);
+        cartListCall = service.getCart("Bearer " + tokenManager.getToken().getAccessToken());
+        cartListCall.enqueue(new Callback<CartList>() {
+            @Override
+            public void onResponse(Call<CartList> call, Response<CartList> response) {
+                generateData(response.body().getCarts());
+            }
+
+            @Override
+            public void onFailure(Call<CartList> call, Throwable t) {
+                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         workerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,4 +164,10 @@ public class CartActivity extends AppCompatActivity {
         });
 
     }
+        public void generateData(ArrayList<Cart> carts){
+            recyclerView = findViewById(R.id.cart_list);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new CartAdapter(carts);
+            recyclerView.setAdapter(adapter);
+        }
 }

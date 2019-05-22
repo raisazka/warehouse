@@ -1,6 +1,7 @@
 package com.example.warehouse.Network;
 
 import com.example.warehouse.Model.Cart;
+import com.example.warehouse.Model.CartList;
 import com.example.warehouse.Model.InstallerList;
 import com.example.warehouse.Model.WorkerList;
 
@@ -20,7 +21,8 @@ public interface CartService {
                           @Field("qty") int qty,
                           @Field("remarks") String remarks);
 
-
+    @GET("cart")
+    Call<CartList> getCart(@Header("Authorization") String token);
 
     @GET("workers")
     Call<WorkerList> getWorkers(@Header("Authorization") String token);

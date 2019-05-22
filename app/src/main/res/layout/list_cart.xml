@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="50dp"
-    android:layout_marginTop="20dp">
+    android:layout_marginTop="30dp">
 
     <TextView
         android:id="@+id/item_name"
@@ -13,12 +13,21 @@
         android:text="Item 1"/>
 
     <TextView
-        android:id="@+id/item_qty"
+    android:id="@+id/item_qty"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/item_name"
+    android:textSize="15dp"
+    android:text="qty: 10"
+    android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/item_remarks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_name"
+        android:layout_below="@+id/item_qty"
         android:textSize="15dp"
-        android:text="qty: 10"
+        android:text="Remarks: "
         android:layout_marginTop="5dp"/>
 
     <View
@@ -26,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"
-        android:layout_below="@+id/item_qty"/>
+        android:layout_below="@+id/item_remarks"/>
 
     <ImageView
         android:layout_width="wrap_content"

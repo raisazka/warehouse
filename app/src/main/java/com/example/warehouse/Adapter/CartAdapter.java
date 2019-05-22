@@ -16,6 +16,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
 
     ArrayList<Cart> carts;
 
+    public CartAdapter(ArrayList<Cart> carts) {
+        this.carts = carts;
+    }
+
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -27,6 +31,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
         cartViewHolder.name.setText(carts.get(i).getName());
         cartViewHolder.qty.setText(carts.get(i).getQty());
+        cartViewHolder.remarks.setText(carts.get(i).getRemarks());
     }
 
     @Override
