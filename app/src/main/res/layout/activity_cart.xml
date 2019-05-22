@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/employee"/>
+        <RelativeLayout
+            android:id="@+id/workers_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/workers_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Workers"/>
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="200dp"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/workers_title"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_dropdown"
+                android:layout_marginRight="50dp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/operator"/>
+        <RelativeLayout
+            android:id="@+id/installer_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/installer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Installer"/>
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="200dp"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/installer_title"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_dropdown"
+                android:layout_marginRight="50dp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cart_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
