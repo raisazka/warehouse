@@ -95,4 +95,16 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <Button
+        android:id="@+id/btn_checkout"
+        android:layout_marginTop="25dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="Checkout"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:background="@drawable/rounded_button_stock"
+        android:textColor="@android:color/background_light"
+        android:layout_gravity="center"/>
+
 </LinearLayout>

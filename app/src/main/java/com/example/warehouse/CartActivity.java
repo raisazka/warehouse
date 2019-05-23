@@ -1,6 +1,7 @@
 package com.example.warehouse;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,10 +20,12 @@ import com.example.warehouse.Model.Cart;
 import com.example.warehouse.Model.CartList;
 import com.example.warehouse.Model.Installer;
 import com.example.warehouse.Model.InstallerList;
+import com.example.warehouse.Model.StockOut;
 import com.example.warehouse.Model.Worker;
 import com.example.warehouse.Model.WorkerList;
 import com.example.warehouse.Network.CartService;
 import com.example.warehouse.Network.RetrofitBuilder;
+import com.example.warehouse.Network.StockOutService;
 import com.example.warehouse.TokenManager.TokenManager;
 
 import java.util.ArrayList;
@@ -33,15 +37,18 @@ import retrofit2.Response;
 public class CartActivity extends AppCompatActivity {
 
     CartService service;
+    StockOutService stockOutService;
     Call<WorkerList> workerListCall;
     Call<InstallerList> installerListCall;
     Call<CartList> cartListCall;
+    Call<StockOut> stockOutCall;
     RelativeLayout installerLayout, workerLayout;
     TokenManager tokenManager;
     AlertDialog dialog, dialog2;
     TextView workersTitle, installerTitle;
     RecyclerView recyclerView;
     CartAdapter adapter;
+    Button btnCheckout;
     int workersId, installerId;
     private static final String TAG = "CartActivity";
 
@@ -50,6 +57,7 @@ public class CartActivity extends AppCompatActivity {
         installerTitle = findViewById(R.id.installer_title);
         installerLayout = findViewById(R.id.installer_layout);
         workerLayout = findViewById(R.id.workers_layout);
+        btnCheckout = findViewById(R.id.btn_checkout);
     }
 
     @Override
@@ -59,6 +67,7 @@ public class CartActivity extends AppCompatActivity {
         init();
         tokenManager = TokenManager.getInstance(getSharedPreferences("preferences", MODE_PRIVATE));
         service = RetrofitBuilder.getRetrofit().create(CartService.class);
+        stockOutService = RetrofitBuilder.getRetrofit().create(StockOutService.class);
         cartListCall = service.getCart("Bearer " + tokenManager.getToken().getAccessToken());
         cartListCall.enqueue(new Callback<CartList>() {
             @Override
@@ -158,6 +167,32 @@ public class CartActivity extends AppCompatActivity {
                     public void onFailure(Call<InstallerList> call, Throwable t) {
                         Toast.makeText(CartActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                         Log.d(TAG, "onFailure: " + t.getMessage());
+                    }
+                });
+            }
+        });
+
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stockOutCall = stockOutService.createStockOut("Bearer " + tokenManager.getToken().getAccessToken(), workersId, installerId);
+                stockOutCall.enqueue(new Callback<StockOut>() {
+                    @Override
+                    public void onResponse(Call<StockOut> call, Response<StockOut> response) {
+                        if(response.body().getCode() == 200){
+                            Toast.makeText(CartActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(CartActivity.this, MenuActivity.class);
+                            i.setFlags(i.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Toast.makeText(CartActivity.this, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StockOut> call, Throwable t) {
+                        Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }

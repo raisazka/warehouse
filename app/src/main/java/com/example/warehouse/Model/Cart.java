@@ -4,12 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Cart extends BaseResponse{
 
+    @SerializedName("id")
+    private int id;
     @SerializedName("item_name")
     private String name;
-    @SerializedName("item_qty")
+    @SerializedName("qty")
     private int qty;
     @SerializedName("remarks")
     private String remarks;
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
