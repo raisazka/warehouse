@@ -1,5 +1,6 @@
 package com.example.warehouse.Adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.warehouse.Model.Item;
 import com.example.warehouse.R;
+import com.example.warehouse.ShowItemActivity;
 import com.example.warehouse.ViewHolder.ItemViewHolder;
 
 import java.util.ArrayList;
@@ -28,8 +30,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder itemViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ItemViewHolder itemViewHolder,final int i) {
         itemViewHolder.name.setText(items.get(i).getName());
+        itemViewHolder.itemCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(itemViewHolder.itemView.getContext(), ShowItemActivity.class);
+                intent.putExtra("id", items.get(i).getId());
+                itemViewHolder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

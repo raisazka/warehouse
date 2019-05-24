@@ -16,7 +16,7 @@
         android:layout_below="@+id/image_report"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Generate Monthly Report"
+        android:text="Generate Weekly Report"
         android:background="@drawable/rounded_button_stock"
         android:paddingHorizontal="20dp"
         android:textColor="@color/colorWhite"/>

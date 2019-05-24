@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -17,14 +16,13 @@ public class MenuActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     TokenManager tokenManager;
-    private static final String TAG = "MainActivity";
-    CardView inventory, stock_in, stock_out;
+    CardView inventory, stock_in, stock_out, report;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
+        report = findViewById(R.id.report);
         inventory = findViewById(R.id.inventory);
         stock_in = findViewById(R.id.stock_in);
         stock_out = findViewById(R.id.stock_out);
@@ -63,6 +61,14 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MenuActivity.this, StockOutActivity.class);
+                startActivity(i);
+            }
+        });
+
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MenuActivity.this, ReportActivity.class);
                 startActivity(i);
             }
         });

@@ -3,7 +3,7 @@ package com.example.warehouse.Model;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Item  {
+public class Item extends BaseResponse{
 
     @SerializedName("id")
     private int id;

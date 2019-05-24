@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@color/colorBlack">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:text="Adjust Stock"
+                android:textColor="@color/colorWhite"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:paddingHorizontal="60dp"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/substract_adjust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/substract"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="30dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/qty_title_adjust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qty"
+                android:layout_centerInParent="true"
+                android:textSize="20dp" />
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="70dp"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/qty_title_adjust"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/add_adjust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="30dp"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>
