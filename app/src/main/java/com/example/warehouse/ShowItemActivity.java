@@ -1,6 +1,8 @@
 package com.example.warehouse;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,7 +28,8 @@ public class ShowItemActivity extends AppCompatActivity {
     ItemService service;
     Call<Item> call;
     TokenManager tokenManager;
-    public static int id;
+    SharedPreferences preferences;
+    public static String id;
     private static final String TAG = "ShowItemActivity";
 
     @Override
@@ -38,7 +41,8 @@ public class ShowItemActivity extends AppCompatActivity {
         stock = findViewById(R.id.stock);
         size = findViewById(R.id.size);
         expDate = findViewById(R.id.exp_date);
-        id = getIntent().getIntExtra("id", 0);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        id = getIntent().getStringExtra("id");
         Log.d(TAG, "ItemID: " + id);
         service = RetrofitBuilder.getRetrofit().create(ItemService.class);
         tokenManager = TokenManager.getInstance(getSharedPreferences("preferences", MODE_PRIVATE));
@@ -58,12 +62,15 @@ public class ShowItemActivity extends AppCompatActivity {
             }
         });
 
-        btnAdjust.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(v);
-            }
-        });
+        btnAdjust.setOnClickListener(v ->
+                {
+                   if(preferences.getString("role", null).equals("admin")){
+                       showDialog(v);
+                   }else{
+                       Toast.makeText(this, "Unathorized", Toast.LENGTH_SHORT).show();
+                   }
+                }
+        );
     }
 
     public void showDialog(View view){

@@ -13,7 +13,6 @@ public interface StockOutService {
     @POST("stock-out")
     @FormUrlEncoded
     Call<StockOut> createStockOut(@Header("Authorization") String token,
-                                  @Field("worker_id") int workerId,
-                                  @Field("installer_id") int installerId);
+                                  @Field("staff_id") int staffsId);
 
 }

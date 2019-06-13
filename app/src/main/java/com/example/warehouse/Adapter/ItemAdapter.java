@@ -31,14 +31,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final ItemViewHolder itemViewHolder,final int i) {
-        itemViewHolder.name.setText(items.get(i).getName());
-        itemViewHolder.itemCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(itemViewHolder.itemView.getContext(), ShowItemActivity.class);
-                intent.putExtra("id", items.get(i).getId());
-                itemViewHolder.itemView.getContext().startActivity(intent);
-            }
+        itemViewHolder.name.setText("Item Name: " + items.get(i).getName());
+        itemViewHolder.id.setText("Item ID: " + items.get(i).getId());
+        itemViewHolder.stock.setText("Stock: " + items.get(i).getStock());
+        itemViewHolder.itemCard.setOnClickListener(v -> {
+            Intent intent = new Intent(itemViewHolder.itemView.getContext(), ShowItemActivity.class);
+            intent.putExtra("id", items.get(i).getId());
+            itemViewHolder.itemView.getContext().startActivity(intent);
         });
     }
 

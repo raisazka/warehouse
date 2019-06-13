@@ -12,8 +12,7 @@ public interface StockInService {
 
     @POST("stock-in")
     @FormUrlEncoded
-    Call<StockIn> createStockIn(@Header("Authorization") String token, @Field("item_id") int item_id,
-                                @Field("qty") int qty,
-                                @Field("remarks") String remarks);
+    Call<StockIn> createStockIn(@Header("Authorization") String token,
+                                @Field("staff_id") int staffsId);
 
 }

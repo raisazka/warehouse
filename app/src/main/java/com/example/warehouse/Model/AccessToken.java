@@ -10,7 +10,8 @@ public class AccessToken {
     private String accessToken;
     @SerializedName("expired_at")
     private String expiresAt;
-
+    @SerializedName("role")
+    private String role;
 
     public int getCode() {
         return code;
@@ -34,5 +35,9 @@ public class AccessToken {
 
     public void setExpiresAt(String expiresAt) {
         this.expiresAt = expiresAt;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

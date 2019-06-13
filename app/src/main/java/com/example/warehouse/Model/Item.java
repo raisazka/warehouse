@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Item extends BaseResponse{
 
     @SerializedName("id")
-    private int id;
+    private String id;
     @SerializedName("item_description")
     private String name;
     @SerializedName("item_type_id")
@@ -19,7 +19,7 @@ public class Item extends BaseResponse{
     private String size;
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

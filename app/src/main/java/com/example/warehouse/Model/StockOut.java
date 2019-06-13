@@ -8,10 +8,8 @@ public class StockOut extends BaseResponse{
     private int id;
     @SerializedName("user_id")
     private int userId;
-    @SerializedName("installer_id")
-    private int installerId;
-    @SerializedName("worker_id")
-    private int workerId;
+    @SerializedName("staff_id")
+    private int staffId;
 
     public int getId() {
         return id;
@@ -21,11 +19,7 @@ public class StockOut extends BaseResponse{
         return userId;
     }
 
-    public int getInstallerId() {
-        return installerId;
-    }
-
-    public int getWorkerId() {
-        return workerId;
+    public int getStaffId() {
+        return staffId;
     }
 }

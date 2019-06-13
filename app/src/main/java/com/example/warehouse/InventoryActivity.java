@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
 
 import com.example.warehouse.Adapter.ItemAdapter;
@@ -30,6 +32,7 @@ public class InventoryActivity extends AppCompatActivity {
     ItemService service;
     TokenManager tokenManager;
     ItemAdapter adapter;
+    int whId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +41,9 @@ public class InventoryActivity extends AppCompatActivity {
 
         service = RetrofitBuilder.getRetrofit().create(ItemService.class);
         tokenManager = TokenManager.getInstance(getSharedPreferences("preferences", MODE_PRIVATE));
-        call = service.getItems("Bearer " + tokenManager.getToken().getAccessToken());
+        whId = getIntent().getIntExtra("wh-id", 0);
+        Log.d("InventoryActivity", "onCreate: " + whId);
+        call = service.getItems("Bearer " + tokenManager.getToken().getAccessToken(), whId);
         call.enqueue(new Callback<ItemList>() {
             @Override
             public void onResponse(Call<ItemList> call, Response<ItemList> response) {
@@ -47,7 +52,7 @@ public class InventoryActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ItemList> call, Throwable t) {
-
+                Toast.makeText(InventoryActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
+
+    <TextView
+        android:id="@+id/title_stock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TITLE"
+        android:textSize="30dp"
+        android:padding="20dp"
+        android:layout_marginBottom="40dp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/box1"/>
+        <RelativeLayout
+            android:id="@+id/type_layout_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/item_type_title_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Item Type"/>
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/item_type_title_out"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_dropdown"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/box"/>
+        <RelativeLayout
+            android:id="@+id/name_layout_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/item_name_title_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Item Name"/>
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_below="@+id/item_name_title_out"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_dropdown"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:paddingHorizontal="60dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/substract_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/substract"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="30dp"/>
+
+        <RelativeLayout
+            android:id="@+id/qty_layout_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/qty_title_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="qty"
+                android:layout_centerInParent="true"
+                android:textSize="20dp" />
+
+            <View
+                android:layout_marginTop="7dp"
+                android:layout_width="70dp"
+                android:layout_height="2dp"
+                android:background="@android:color/darker_gray"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/qty_title_out"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/add_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="30dp"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/remarks_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Remarks"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:paddingHorizontal="20dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_add_cart"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Add to cart"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            android:background="@drawable/rounded_button_stock"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:id="@+id/btn_view_cart"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="View cart"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/rounded_button_cart"
+            android:textColor="@android:color/black"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

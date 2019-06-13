@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/menu_title"
-            android:text="Hi, Rais"
+            android:text="Hello"
             android:textSize="25dp"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/image"

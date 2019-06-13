@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.warehouse.InventoryActivity;
+import com.example.warehouse.MenuActivity;
 import com.example.warehouse.Model.Item;
 import com.example.warehouse.Network.ItemService;
 import com.example.warehouse.Network.RetrofitBuilder;
@@ -91,9 +92,10 @@ public class AdjustDialogFragment extends DialogFragment {
                             Toast.makeText(act, "Error: " + response.body().getMessage(), Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(act, response.body().getMessage(), Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(context, InventoryActivity.class);
+                            Intent intent = new Intent(context, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             context.startActivity(intent);
+                            act.finish();
                         }
                     }
 
@@ -105,12 +107,7 @@ public class AdjustDialogFragment extends DialogFragment {
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
         builder.setView(v);
         return builder.create();
     }

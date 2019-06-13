@@ -1,6 +1,8 @@
 package com.example.warehouse;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     TokenManager tokenManager;
     UserService service;
     Call<AccessToken> call;
+    SharedPreferences preferences;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -36,38 +39,40 @@ public class MainActivity extends AppCompatActivity {
         edit_email = findViewById(R.id.edit_email);
         edit_password = findViewById(R.id.edit_password);
         btn_login = findViewById(R.id.btn_login);
-
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         tokenManager = TokenManager.getInstance(getSharedPreferences("preferences", MODE_PRIVATE));
         service = RetrofitBuilder.getRetrofit().create(UserService.class);
 
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    String email = edit_email.getText().toString();
-                    String password = edit_password.getText().toString();
-                    call = service.login(email, password);
-                    call.enqueue(new Callback<AccessToken>() {
-                        @Override
-                        public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+        btn_login.setOnClickListener(v -> {
+                String email = edit_email.getText().toString();
+                String password = edit_password.getText().toString();
+                call = service.login(email, password);
+                call.enqueue(new Callback<AccessToken>() {
+                    @Override
+                    public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+                        if(response.isSuccessful()){
                             if(response.body().getCode() == 401){
                                 Log.d(TAG, "Error: " + response.errorBody());
                                 Toast.makeText(MainActivity.this, "Unauthorized", Toast.LENGTH_LONG).show();
                             }else{
                                 tokenManager.saveToken(response.body());
                                 Toast.makeText(MainActivity.this, "Success Login", Toast.LENGTH_LONG).show();
-                                Log.d(TAG, "onResponse: " + tokenManager.getToken());
-                                Intent i = new Intent(MainActivity.this, MenuActivity.class);
+                                Log.w(TAG, "onResponse: " + response.body().getRole() );
+                                preferences.edit().putString("role", response.body().getRole()).commit();
+                                Intent i = new Intent(MainActivity.this, ChooseWarehouseActivity.class);
                                 startActivity(i);
                                 Log.d(TAG, "Token: " + response.body().getAccessToken());
                             }
+                        }else{
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
-                        @Override
-                        public void onFailure(Call<AccessToken> call, Throwable t) {
-                            Log.d(TAG, "onError: " + t.getMessage());
-                            Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-            }
+                    }
+                    @Override
+                    public void onFailure(Call<AccessToken> call, Throwable t) {
+                        Log.d(TAG, "onError: " + t.getMessage());
+                        Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
         });
     }
 }

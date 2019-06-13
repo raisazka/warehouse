@@ -27,6 +27,7 @@ public class TokenManager {
         editor.putString("access_token", token.getAccessToken()).commit();
     }
 
+
     public void deleteToken(){
         editor.remove("access_token").commit();
     }
@@ -36,5 +37,6 @@ public class TokenManager {
         token.setAccessToken(preferences.getString("access_token", null));
         return token;
     }
+
 
 }

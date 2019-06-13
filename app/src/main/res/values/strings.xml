@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Warehouse</string>
+    <string-array name="positions">
+        <item>installer</item>
+        <item>worker</item>
+    </string-array>
 </resources>

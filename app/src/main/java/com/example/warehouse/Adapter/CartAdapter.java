@@ -1,8 +1,11 @@
 package com.example.warehouse.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +32,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
     CartService service;
     TokenManager tokenManager;
     private Context context;
+    SharedPreferences prefs;
 
     public CartAdapter(ArrayList<Cart> carts) {
         this.carts = carts;
@@ -48,11 +52,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder> {
         cartViewHolder.qty.setText("Qty: " + carts.get(i).getQty());
         cartViewHolder.remarks.setText(carts.get(i).getRemarks());
         service = RetrofitBuilder.getRetrofit().create(CartService.class);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Log.d("CartAdapter", "onBindViewHolder: " + prefs.getString("stock-type", null));
         tokenManager = TokenManager.getInstance(context.getSharedPreferences("preferences", Context.MODE_PRIVATE));
-        cartViewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        cartViewHolder.btnDelete.setOnClickListener(v -> {
+            if(prefs.getString("stock-type", null).equals("stock-out")){
                 call = service.deleteCart("Bearer " + tokenManager.getToken().getAccessToken(), carts.get(i).getId());
+                call.enqueue(new Callback<Cart>() {
+                    @Override
+                    public void onResponse(Call<Cart> call, Response<Cart> response) {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_LONG).show();
+                        ((CartActivity)context).finish();
+                        context.startActivity(((CartActivity) context).getIntent());
+                    }
+
+                    @Override
+                    public void onFailure(Call<Cart> call, Throwable t) {
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }else{
+                call = service.deleteCartIn("Bearer " + tokenManager.getToken().getAccessToken(), carts.get(i).getId());
                 call.enqueue(new Callback<Cart>() {
                     @Override
                     public void onResponse(Call<Cart> call, Response<Cart> response) {
